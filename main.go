@@ -1,34 +1,26 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 )
 
-type LocalDeclStmt struct{}
-type ExprStmt struct{}
-type Stmt interface{}
-type Block struct {
-	statements []Stmt
-}
-
 func main() {
 
-	file_text, err := os.ReadFile("test.js")
-
-	if err != nil {
-		panic(err)
-	}
-
-	scanner := NewScanner(string(file_text))
+	reader := bufio.NewReader(os.Stdin)
 
 	for {
-		tok := scanner.NextToken()
-		fmt.Printf("%v %v\n", tok.kind, tok.lit)
-		if tok.kind == TOKEN_EOF {
+		fmt.Print(">> ")
+		file_text, err := reader.ReadString('\n')
+
+		if err != nil {
 			break
 		}
-	}
 
-	fmt.Printf("%v\n", file_text)
+		tokenizer := NewTokenizer(string(file_text))
+		parser := NewParser(tokenizer)
+		interpreter := NewInterperter(parser)
+		fmt.Printf("\nres: %v\n", interpreter.interpret())
+	}
 }
