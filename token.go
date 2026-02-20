@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type TokenKind int
 
 const (
@@ -49,4 +51,19 @@ type Token struct {
 
 var keywords = map[string]TokenKind{
 	"let": TOKEN_LET,
+}
+
+func (t Token) toString() string {
+	tokStr, exist := tokenToString[t.kind]
+
+	if !exist {
+		panic("No string repr in table")
+	}
+
+	if t.kind == TOKEN_NEWLINE {
+		return fmt.Sprintf("%v", tokStr)
+	} else {
+		return fmt.Sprintf("%v %v", tokStr, t.lit)
+	}
+
 }
