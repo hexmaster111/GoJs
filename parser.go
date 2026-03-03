@@ -83,4 +83,8 @@ func (p *Parser) expr() *BinOpNode {
 	return node
 }
 
-func (p *Parser) parse() *BinOpNode { return p.expr() }
+func (p *Parser) parse() *BinOpNode {
+	ret := p.expr()
+
+	return ret
+}

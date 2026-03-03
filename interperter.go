@@ -10,11 +10,13 @@ type Interpreter struct {
 }
 
 var chvals = map[string]float64{
-	"CH1": 5,
-	"CH2": 10,
-	"a":   1,
-	"b":   2,
-	"c":   3,
+	"CH1":       5,
+	"CH2":       10,
+	"a":         1,
+	"b":         2,
+	"c":         3,
+	"CH[0]":     1000,
+	"DynoSpeed": 1000,
 }
 
 func NewInterperter(parser *Parser) *Interpreter {
